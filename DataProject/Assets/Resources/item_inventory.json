@@ -1,0 +1,14 @@
+{
+  "inventory": [
+
+    {
+      "item_name": "바나나",
+      "item_count": 5
+    }
+    ,
+    {
+      "item_name": "딸기",
+      "item_count" :  7
+    }
+  ]
+}
