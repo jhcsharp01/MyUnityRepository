@@ -5,7 +5,9 @@
 ## contents
 
 + Unity Sound
-  + Unity AudioSource   
+  
++ [Unity AudioSource](#unity-audiosource)
+   
   + Unity AudioClip
   + Unity AudioMixer
     + [Exercise] Unity Audio Board Visualizer
@@ -14,7 +16,7 @@
 
 <hr/>
 
-## Unity AudioSource
+# Unity AudioSource
 > 씬에서 오디오 클립(AudioClip)을 재생하는 도구
 재생을 하기 위해서는 오디오 리스너(Audio Listener)
 나 오디오 믹서(Audio Mixer)를 통해서 재생이 가능합니다.
@@ -41,3 +43,4 @@
                      
 <hr/>
 
+[Unity AudioSource](#unity-audiosource)
