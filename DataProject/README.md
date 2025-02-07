@@ -42,5 +42,3 @@
 |Reverb Zone mix|리버브 존에 대한 출력 신호 양을 조절합니다.<br>0 :  영향을 받지 않겠습니다.<br>1 : 오디오 소스와 리버브 존 사이의 신호를 최대치<br>1.1 : 10db 증폭|     
                      
 <hr/>
-
-[Unity AudioSource](#unity-audiosource)
