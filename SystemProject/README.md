@@ -6,27 +6,28 @@
 [2. 스크립터블 오브젝트 만드는 방법](#스크립터블-오브젝트-만드는-방법)
 
 [3. 에셋 메뉴 설정](#CreateAssetMenu의-설정)
+
+[4. 큐(Queue)](#Queue)
 <hr/>
 
 ## 스크립터블 오브젝트(Scriptable Object)
->> 유니티에서 제공해주는 데이터 저장 객체로 게임 데이터를 관리하고, 여러 인스턴스에서 공유할 수 있도록 도와줍니다.
+유니티에서 제공해주는 데이터 저장 객체로 게임 데이터를 관리하고, 여러 인스턴스에서 공유할 수 있도록 도와줍니다.
 
 [장점]
->> 1. 동일한 적(오브젝트)의 정보등을 여러 오브젝트에서 공유해도 메모리는 한번만 차지합니다.
->> 2. 데이터와 로직을 분리해서 사용할 수 있습니다.<br>
->> **ex) 캐릭터의 능력치 등을 SO로 관리할 경우 스탯에 대한 수정을 쉽게 진행할 수 있습니다.**
->> 4. 런타임 중에 데이터의 수정이 가능합니다.
+1. 동일한 적(오브젝트)의 정보등을 여러 오브젝트에서 공유해도 메모리는 한번만 차지합니다.<br>
+2. 데이터와 로직을 분리해서 사용할 수 있습니다.<br>
+**ex) 캐릭터의 능력치 등을 SO로 관리할 경우 스탯에 대한 수정을 쉽게 진행할 수 있습니다.**<br>
+4. 런타임 중에 데이터의 수정이 가능합니다.
 
 [단점]
->> 1. 복잡한 데이터 구조 등에서는 직렬화가 되지 않는 경우가 있어 데이터 손실 발생 위험이 있습니다.
->> 2. 멀티 쓰레드 환경에서는 데이터 처리 시 충돌 문제가 우려될 수 있습니다.<br>
->>    (이런 경우라면 데이터베이스 활용이 더 좋을 수 있습니다.)
+1. 복잡한 데이터 구조 등에서는 직렬화가 되지 않는 경우가 있어 데이터 손실 발생 위험이 있습니다.<br>
+2. 멀티 쓰레드 환경에서는 데이터 처리 시 충돌 문제가 우려될 수 있습니다.<br>
+   (이런 경우라면 데이터베이스 활용이 더 좋을 수 있습니다.)
 
 **사용하기 좋은 예시**
->> 1. 게임에 대한 기본 설정 값<br>
-  **(게임 난이도, 게임 사운드 설정, 컨트롤 설정)**
->> 2. 행동 패턴이나 능력치 등에 대한 설정
->> 3. 별도의 데이터베이스를 따로 구현하지 않는다는 전제로 아이템 데이터베이스를 만들기 좋습니다.
+1. 게임에 대한 기본 설정 값(게임 난이도, 게임 사운드 설정, 컨트롤 설정) <br>
+2. 행동 패턴이나 능력치 등에 대한 설정
+3. 별도의 데이터베이스를 따로 구현하지 않는다는 전제로 아이템 데이터베이스를 만들기 좋습니다.
 
 <hr/>
 
@@ -73,6 +74,62 @@ public class 클래스명 : ScriptableObject
 |fileName|생성되는 에셋의 이름|
 |menuName|Create를 통해 만들어지는 메뉴의 이름을 설정합니다. /를 넣을 경우 경로가 추가됩니다.|
 |order|메뉴 중에서 몇번째 위치에 존재할 지 표시할 때 설정하는 값, 값이 클수록 마지막에 표기됩니다.|
+
+
+## 스크립터블 오브젝트 사용 예시
+
+>> 해당 예제는 몬스터에게 드랍 테이블에 대한 정보를 줘 몬스터가 죽었을 때, 아이템이 드랍되는 연출을 위한 예제입니다.
+
+```cs
+using System.Collections.Generic;
+using UnityEngine;
+
+[CreateAssetMenu(fileName ="DropTable", menuName = "DropTable/drop table", order = 0)]
+public class DropTable : ScriptableObject
+{
+    public List<GameObject> drop_table;
+}
+
+```
+
+
+```cs
+using System;
+using UnityEngine;
+using Random = UnityEngine.Random;
+
+public class Enemy : MonoBehaviour
+{
+    public DropTable DropTable;
+
+    // Update is called once per frame
+    void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.X))
+        {
+            Dead();
+        }
+    }
+    private void Dead()
+    {
+        GameObject dropItemPrefab = DropTable.drop_table[Random.Range(0,DropTable.drop_table.Count)];
+        Instantiate(dropItemPrefab, transform.position, Quaternion.identity);
+        Destroy(gameObject);
+    }
+}
+
+```
+![image](https://github.com/user-attachments/assets/5ba45f31-3e6c-4703-8013-5b8cf6f1cc4a)
+<br> 드랍 아이템 테이블 SO 생성 후 값 배치
+
+![image](https://github.com/user-attachments/assets/fdcae685-ac28-448d-9116-6e0be4aaaab3)
+<br> 저장된 아이템(프리팹)
+
+![image](https://github.com/user-attachments/assets/51b5d071-5f94-45b5-8290-ae35d17a77ec)
+<br> 적 스크립트에 연결
+
+![image](https://github.com/user-attachments/assets/ba2ea65e-43d4-4938-8a14-c76f2ee95a8c)
+<br> 실행 결과(랜덤 생성 후 몬스터 제거)
 
 
 <div align="right">
