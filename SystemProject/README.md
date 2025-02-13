@@ -75,8 +75,14 @@ public class 클래스명 : ScriptableObject
 |order|메뉴 중에서 몇번째 위치에 존재할 지 표시할 때 설정하는 값, 값이 클수록 마지막에 표기됩니다.|
 
 
-                                              [목차로](#목차)
+<div align="right">
+ 
+[목차로](#목차)
 
+</div>
+<hr>
+
+## Queue
 
 
 
