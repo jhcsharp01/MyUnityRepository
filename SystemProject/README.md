@@ -140,7 +140,14 @@ public class Enemy : MonoBehaviour
 <hr>
 
 ## Queue
+C# 자료구조 컬렉션 중 하나이며, 선입선출(First in First Out) 구조를 구현할 때 효과적입니다.
 
+|이름|내용|형태|
+|------|--------|--------|
+|큐 생성|접근제한자 Queue<T> 큐 이름 = new Queue<T>();|-|
+|큐에 데이터 추가|큐 이름.Enqueue(값)|-|
+|첫번째 데이터 조회|큐 이름.Peek|return|
+|큐 데이터 제거|큐 이름.Dequeue()|return|
 
 
 
