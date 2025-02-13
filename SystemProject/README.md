@@ -56,6 +56,8 @@ public class 클래스명 : ScriptableObject
 ![image](https://github.com/user-attachments/assets/b1aff16c-a352-4044-8f17-141ba144aace)
 <br> 게임 오브젝트에 직접적으로 연결할 수 없습니다. 내부 데이터로만 활용합니다.
 
+[목차로](#목차)
+
 |제목|내용|설명|
 |------|---|---|
 |sample1|content1|description01|
