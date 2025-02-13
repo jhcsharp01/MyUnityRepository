@@ -5,9 +5,10 @@
 
 [2. 스크립터블 오브젝트 만드는 방법](#스크립터블-오브젝트-만드는-방법)
 
+[3. 에셋 메뉴 설정](#CreateAssetMenu의-설정)
 <hr/>
 
-# 스크립터블 오브젝트(Scriptable Object)
+## 스크립터블 오브젝트(Scriptable Object)
 >> 유니티에서 제공해주는 데이터 저장 객체로 게임 데이터를 관리하고, 여러 인스턴스에서 공유할 수 있도록 도와줍니다.
 
 [장점]
@@ -29,7 +30,7 @@
 
 <hr/>
 
-# 스크립터블 오브젝트 만드는 방법
+## 스크립터블 오브젝트 만드는 방법
 
 ```cs
 using UnityEngine;
@@ -56,13 +57,26 @@ public class 클래스명 : ScriptableObject
 ![image](https://github.com/user-attachments/assets/b1aff16c-a352-4044-8f17-141ba144aace)
 <br> 게임 오브젝트에 직접적으로 연결할 수 없습니다. 내부 데이터로만 활용합니다.
 
-[목차로](#목차)
 
-|제목|내용|설명|
-|------|---|---|
-|sample1|content1|description01|
-|sample2|content2|description02|
-|sample3|content3|description03|
+```cs
+using UnityEngine;
+
+[CreateAssetMenu(fileName ="파일명", menuName = "경로/메뉴", order = 숫자)]
+public class 클래스명 : ScriptableObject
+{
+    
+}
+```
+## CreateAssetMenu의 설정
+|이름|내용|
+|------|--------|
+|fileName|생성되는 에셋의 이름|
+|menuName|Create를 통해 만들어지는 메뉴의 이름을 설정합니다. /를 넣을 경우 경로가 추가됩니다.|
+|order|메뉴 중에서 몇번째 위치에 존재할 지 표시할 때 설정하는 값, 값이 클수록 마지막에 표기됩니다.|
+
+
+                                              [목차로](#목차)
+
 
 
 
