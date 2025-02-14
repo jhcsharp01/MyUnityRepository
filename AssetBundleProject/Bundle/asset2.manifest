@@ -1,0 +1,35 @@
+ManifestFileVersion: 0
+UnityVersion: 6000.0.34f1
+CRC: 3162044061
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 4fa1df3b62b1136d0b0865dd58c273d6
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 72af5cfcb408e4d4ebbbffe18b306962
+  IncrementalBuildHash:
+    serializedVersion: 2
+    Hash: 2efb2eef5cd13302fc05c515cbdc80dc
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 23
+  Script: {instanceID: 0}
+- Class: 33
+  Script: {instanceID: 0}
+- Class: 43
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 135
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/Prefabs/Green_Sphere.prefab
+Dependencies: []

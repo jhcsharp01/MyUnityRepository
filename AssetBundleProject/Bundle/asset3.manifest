@@ -1,0 +1,35 @@
+ManifestFileVersion: 0
+UnityVersion: 6000.0.34f1
+CRC: 3733812230
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 445d6414a64e707339a50fae4ef6b5a5
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 72af5cfcb408e4d4ebbbffe18b306962
+  IncrementalBuildHash:
+    serializedVersion: 2
+    Hash: d71868f841572d3fee4460076036520c
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 23
+  Script: {instanceID: 0}
+- Class: 33
+  Script: {instanceID: 0}
+- Class: 43
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 135
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/Prefabs/Red_Sphere.prefab
+Dependencies: []
