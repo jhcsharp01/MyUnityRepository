@@ -134,9 +134,7 @@ Ground Layer를 Ground로 설정
 
 ![image](https://github.com/user-attachments/assets/8c5e77e4-4338-426b-bfa7-e0abc2600db4)
 
-<div style="text-align: right"> [목차](#목차) </div>
-
-
+[목차](#목차)
 
 
 
