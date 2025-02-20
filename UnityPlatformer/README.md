@@ -10,7 +10,6 @@
 - [태그 레이어 설정](#태그-레이어-설정)
 - [캐릭터 구현](#캐릭터-구현)
 - [맵](#맵)
-- [타이틀 씬](#타이틀-씬)
 - [UI 설계](#UI-설계)
 
 # 사용 에셋
@@ -94,22 +93,48 @@ Ground Layer를 Ground로 설정
 
 # 맵
 
+## Stage1
+   ![image](https://github.com/user-attachments/assets/f1c40ed0-6f2b-45c3-914e-e0b64bc1b230)
+
+1. 플레이어는 이동 , 점프 기능을 통해 움직일 수 있다.
+
+2.  바닥으로 떨어질 경우 게임 오버 처리된다.
+
+3.  목표 지점(GOAL)로 들어가면 다음 스테이지로 이동할 수 있다.
 
 
+## Stage2
+ ![image](https://github.com/user-attachments/assets/e402a920-4c05-4eed-91ed-f84933719f8a)
 
-# 타이틀 씬
+1. 플레이어가 이동하는 간격에 맞춰 카메라가 이동한다.
 
+2. 카메라에는 배경이 연결되어있어 배경이 같이 이동한다.
+
+3. 서브 스크린을 따로 설계해 배경과 다른 간격으로 이동한다.
+
+
+## Title
+![image](https://github.com/user-attachments/assets/a6e2b2da-26dc-4471-902d-40841a57c521)
+
+1. 스타트 버튼을 누를 경우 Stage1로 이동한다.
 
 
 # UI 설계
+ ![image](https://github.com/user-attachments/assets/9780d931-24eb-4821-aec1-925af6d4ca31)
 
+|제목|설명|
+|-----|-----------------|
+|Image|화면에 보여질 GAME START나 GAME OVER를 표현하는 위치|
+|Panel|버튼을 관리하는 묶음, 투명 처리가 되어있다.|
+|RestartButton|재시작을 진행할 때 사용할 버튼, 게임 오버 시 활성화된다.|
+|NextButton|다음 스테이지를 진행할 때 사용할 버튼, 스테이지 클리어 시 활성화된다.|
+|TimeBar|스테이지에서 시간을 잴 때 사용할 타임 바다.|
 
+## 적용된 스테이지 예시
 
+![image](https://github.com/user-attachments/assets/8c5e77e4-4338-426b-bfa7-e0abc2600db4)
 
-
-
-
-
+<div style="text-align: right"> [목차](#목차) </div>
 
 
 
