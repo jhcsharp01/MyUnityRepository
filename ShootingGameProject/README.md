@@ -17,6 +17,8 @@
 
    1-4. [적 생성 위치 배치](#적-생성-위치-배치)
 
+   1-5. [데드라인 배치](#데드라인-배치)
+
 
 ## 완성 결과물 예시
 ![image](https://github.com/user-attachments/assets/40c6d799-b95b-47c1-84c7-d56ea7bb10d8)
@@ -146,7 +148,21 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     public float speed = 5;
-
+    Vector3 dir;
+    private void Start()
+    {
+        int rand = Random.Range(0, 10);
+        if(rand < 3)
+        {
+            var target = GameObject.FindGameObjectWithTag("Player");
+            dir = target.transform.position - transform.position;
+            dir.Normalize();
+        }
+        else
+        {
+            dir = Vector3.down;
+        }
+    }
     // Update is called once per frame
     void Update()
     {
@@ -192,6 +208,44 @@ public class EnemyManager : MonoBehaviour
             enemy.transform.position = transfrom.position;
             currentTime = 0;
         }
+    }
+}
+
+```
+
+### 데드라인 배치
+
+**Create -> 3D Object -> Cube**
+
+![image](https://github.com/user-attachments/assets/8e078787-17e3-4c8b-8ece-f109d977bbb6)
+![image](https://github.com/user-attachments/assets/62064804-12ba-460e-b3b3-b0248241c4ae)
+![image](https://github.com/user-attachments/assets/a8bb2b82-24f3-4745-a993-e9bf24ac8d55)
+![image](https://github.com/user-attachments/assets/2f2cbaef-7cb5-4afb-bde8-6091483bd14e)
+
+계층 창 배치
+
+![image](https://github.com/user-attachments/assets/fa91d898-a5aa-41a6-8b83-94d709a3e686)
+
+씬 뷰 확인
+
+![image](https://github.com/user-attachments/assets/cd4efd26-fccd-45b5-9e37-ab0a6caeba59)
+
+레이어 처리, 적합한 오브젝트에 등록합니다.
+
+![image](https://github.com/user-attachments/assets/d3c14e88-3988-4649-968c-eea7f46697ec)
+
+**Edit -> Project Settings -> Physics 2D**
+
+![image](https://github.com/user-attachments/assets/fd6c1f7c-f87d-4f7e-9a6b-761f66ecba16)
+
+DestroyZone.cs 연결
+
+```CS
+public class DestroyZone : MonoBehaviour
+{
+    private void OnTriggerEnter(Collider other)
+    {        
+      Destroy(other.gameObject);
     }
 }
 
