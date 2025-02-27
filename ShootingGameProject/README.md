@@ -27,14 +27,16 @@
 2. [알파 타입 구현](#알파-타입-구현)
 
    2-1. [에셋 추가](#에셋-추가)
-   
+
    2-2. [배경 추가](#배경-추가)
-   
-   2-3. [사운드 추가](#사운드-추가)
+
+   2-3. [폭발 이펙트 추가](#폭발-이펙트-추가) 
+
+   2-4. [사운드 추가](#사운드-추가)
    
    
 
-3. [베타 타입 구현](#베타-타입-구현)
+2. [베타 타입 구현](#베타-타입-구현)
 
    3-1. [싱글톤 패턴](#싱글톤-패턴)
 
@@ -278,9 +280,66 @@ public class DestroyZone : MonoBehaviour
 # 알파 타입 구현
 
 ## 에셋 추가
+|유형|링크|
+|-----|---------------------------------|
+|Player & Enemy|https://assetstore.unity.com/packages/3d/vehicles/air/awesome-cartoon-airplanes-56715|
+|Bullet|https://assetstore.unity.com/packages/3d/props/weapons/rockets-missiles-bombs-cartoon-low-poly-pack-73141|
+|VFX|https://assetstore.unity.com/packages/vfx/particles/cartoon-fx-remaster-free-109565|
+|Background|[https://assetstore.unity.com/packages/audio/sound-fx/grenade-sound-fx-147490](https://assetstore.unity.com/packages/2d/textures-materials/space-star-field-backgrounds-109689)|
+|SFX|https://assetstore.unity.com/packages/audio/sound-fx/grenade-sound-fx-147490|
+|BGM|https://assetstore.unity.com/packages/audio/sound-fx/grenade-sound-fx-147490|
+
+
+※ 배경 import 시 설정
+
+
+![image](https://github.com/user-attachments/assets/ece122b9-7e61-42fc-889d-f9ae9c989712)
+
 
 ## 배경 추가
 
+**Create -> 3D Object -> Quad **
+
+**Create -> Material -> BaseMap에 이미지 추가 (URP/Lit) 기준**
+
+![image](https://github.com/user-attachments/assets/228d3180-a370-4d67-b90c-eb20d6098f19)
+
+
+위치 배치(플레이어보다 뒤에 배치해서 충돌하지 않도록)
+
+![image](https://github.com/user-attachments/assets/8f5fce86-c9d6-4e48-8d88-693816e8cb1f)
+
+background 객체에 Background.cs 추가
+
+```cs
+public class Background : MonoBehaviour
+{
+    public Material backgroundMaterial;
+    public float scrollSpeed = 0.2f;
+   
+    // Update is called once per frame
+    void Update()
+    {
+        backgroundMaterial.mainTextureOffset += Vector2.up * scrollSpeed * Time.deltaTime;
+    }
+}
+
+```
+
+## 폭발 이펙트 추가
+
+
+
 ## 사운드 추가
 
-## 매니저 코드 추가
+총알 오브젝트에 Audio Source 추가 후 리소스 적용
+
+![image](https://github.com/user-attachments/assets/2d35a882-1dfc-474a-ad71-51b7f221f356)
+
+폭발 오브젝트에도 동일하게 적용합니다.
+
+# 베타 타입 구현
+
+## 싱글톤 패턴
+
+## 오브젝트 풀
