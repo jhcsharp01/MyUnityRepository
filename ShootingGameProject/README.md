@@ -15,6 +15,8 @@
 
    1-3. [적 만들기](#적-배치)
 
+   1-4. [적 생성 위치 배치](#적-생성-위치-배치)
+
 
 ## 완성 결과물 예시
 ![image](https://github.com/user-attachments/assets/40c6d799-b95b-47c1-84c7-d56ea7bb10d8)
@@ -33,10 +35,12 @@
    Sun Source는 Directional Light를 등록합니다.
 
    빛 없이 물체의 색을 그대로 표현할 수 있습니다.
+
+   
 ![image](https://github.com/user-attachments/assets/a9d4e3ae-6951-4436-8e9d-8201aa77577c)
 ![image](https://github.com/user-attachments/assets/e5f214e9-3df1-4714-87e2-149eeffdfae2)
 
-3. 카메라의 Projection을 Orthographic으로 설정합니다.
+4. 카메라의 Projection을 Orthographic으로 설정합니다.
 
    Environment의 Background Type은 Solid Color로 설정합니다.
 
@@ -128,3 +132,70 @@ public class Bullet : MonoBehaviour
 ```
 
 ### 적 배치
+**Create -> 3D Object -> Cube**
+
+(이미지와 리지드 바디, 폭발 팩토리 등은 알파 단계에서 추가합니다.)
+
+![image](https://github.com/user-attachments/assets/2fffd5d2-38db-41ac-b283-cf16a1386a05)
+
+Enemy.cs 파일을 연결합니다.
+
+```cs
+using UnityEngine;
+
+public class Enemy : MonoBehaviour
+{
+    public float speed = 5;
+
+    // Update is called once per frame
+    void Update()
+    {
+        transform.position += Vector3.down * speed * Time.deltaTime;
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+            Destroy(collision.gameObject);
+            Destroy(gameObject);
+    }
+}
+
+```
+
+### 적 생성 위치 배치
+
+**Create -> Create Empty**
+
+![image](https://github.com/user-attachments/assets/a724441c-1353-44d3-b467-f28085769a3b)
+
+아이콘 배치
+
+![image](https://github.com/user-attachments/assets/082824bc-2ba5-494a-987f-d67baa695b44)
+
+EnemyManager.cs 연결
+
+```cs 
+
+public class EnemyManager : MonoBehaviour
+{
+    
+    float currentTime;
+    public float createTime = 1.0f;
+    public GameObject enemyFactory;
+
+    private void Update()
+    {
+        currentTime += Time.deltaTime;
+        if(currentTime >= createTime)
+        {
+            GameObject enemy = Instantiate(enemyFactory);
+            enemy.transform.position = transfrom.position;
+            currentTime = 0;
+        }
+    }
+}
+
+```
+
+
+
