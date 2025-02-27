@@ -269,3 +269,10 @@ public class DestroyZone : MonoBehaviour
 
 # 알파 타입 구현
 
+## 에셋 추가
+
+## 배경 추가
+
+## 사운드 추가
+
+## 매니저 코드 추가
