@@ -8,7 +8,8 @@ public class Enemy : MonoBehaviour
 
     public GameObject explosionFactory;
 
-    private void Start()
+    //OnEnable은 유니티에서 제공해주는 활성화 단계에 호출되는 함수입니다.
+    private void OnEnable()
     {
         //적의 방향 설정
 
@@ -39,10 +40,22 @@ public class Enemy : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        ScoreManager.Instance.Score++;
+
         GameObject explosion = Instantiate(explosionFactory);
         explosion.transform.position = transform.position;
 
-        Destroy(collision.gameObject);
-        Destroy(gameObject);
+        //부딪힌 물체의 이름이 Bullet이 포함된다면?
+        //오브젝트 풀로 만들어질 이름은 Bullet(Clone)
+        if(collision.gameObject.name.Contains("Bullet"))
+        {
+            //해당 충돌체를 비활성화 처리합니다.
+            collision.gameObject.SetActive(false);
+        }
+        else
+        {
+            Destroy(collision.gameObject);
+        }
+        gameObject.SetActive(false); //적도 비활성화
     }
 }

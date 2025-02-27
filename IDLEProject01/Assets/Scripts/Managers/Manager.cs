@@ -27,7 +27,7 @@ public class Manager : MonoBehaviour
         if(instance == null)
         {
             instance = this;
-
+            POOL.Initialize(transform);
             DontDestroyOnLoad(gameObject);
         }
         else

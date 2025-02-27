@@ -70,6 +70,13 @@ public class PoolManager
     //Key : string
     //Value : IPool
 
+    Transform manager = null;
+
+    public void Initialize(Transform T)
+    {
+        manager = T;
+    }
+
     public IPool PoolObject(string path)
     {
         //해당 키가 없다면 추가를 진행합니다.
@@ -92,7 +99,8 @@ public class PoolManager
     {
         var obj = new GameObject(path + "Pool");
         //전달받은 이름으로 풀 오브젝트 생성
-        
+        obj.transform.SetParent(manager);
+
         ObjectPool object_pool = new ObjectPool();
         //오브젝트 풀 생성
 

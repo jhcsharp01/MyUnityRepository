@@ -14,6 +14,9 @@ public class Character : MonoBehaviour
 
     protected float attack_range = 3.0f; //공격 범위
     protected float target_range = 5.0f; //타겟에 대한 범위
+    protected bool isATTACK = false;
+    protected Transform target; //타겟에 대한 정보(위치)
+    public Transform bullet_transform;
 
     protected virtual void Start()
     {
@@ -22,18 +25,31 @@ public class Character : MonoBehaviour
 
     protected void SetMotionChange(string motion_name, bool param)
     {
+        if(motion_name == "isATTACK")
+        {
+            animator.SetTrigger("isATTACK");
+            return;
+        }
+
         animator.SetBool(motion_name, param);
     }
 
     //animation event에 의해 호출될 함수
     protected virtual void Thrown()
     {
-        Debug.Log("발사!!");
+
+        Manager.POOL.PoolObject("Projectile").GetGameObject((value) =>
+        {
+            value.transform.position = bullet_transform.position;
+            value.GetComponent<Projectile>().Init(target, atk, "smoke");
+
+        });
+
     }
 
+    protected void InitAttack() => isATTACK = false;
 
-
-    protected Transform target; //타겟에 대한 정보(위치)
+    
 
     //타겟을 찾는 기능
     protected void TargetSearch<T>(T[] targets) where T : Component

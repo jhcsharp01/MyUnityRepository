@@ -486,5 +486,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 091f637c2e520824db92ceb061ad72ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hp: 0
+  atk: 0
+  attack_speed: 0
+  bullet_transform: {fileID: 0}
   monster_speed: 1
   rate: 0.5
