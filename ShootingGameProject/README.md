@@ -456,7 +456,7 @@ public class ScoreManager : MonoBehaviour
             { 
                 bestScore = currenetScore;
                 bestScoreUI.text = $"최고 점수 : {bestScore}";
-                PlayerPrefs.SetInt("Best Score", bestScore);
+                PlayerPrefs.SetInt("Best Score", bestScore); 
             }
         }
     }
@@ -464,5 +464,181 @@ public class ScoreManager : MonoBehaviour
 
 ```
 
-
 ## 오브젝트 풀
+
+>> 오브젝트의 풀(Pool)을 만들어, 미리 오브젝트를 생성해두고, 비활성화해둡니다.
+>> <br>필요한 상황에만 활성화를 진행해 사용하고, 사용이 마무리되면 다시 비활성화합니다.
+>> <br>해당 개념은 매번 생성과 파괴가 반복됬을 경우 내부의 가비지 컬렉터(GC)가 발생하면서 메모리의 할당, 해제가 발생해 CPU에 무리를 주는 상황에 대한 해결책으로 나왔습니다.
+>> <br>단 이 방식은 미리 오브젝트에 할당을 주고 시작하는 행위로, 자원이 넉넉한 상황이 아니면 사용할 수 없습니다.
+
+**총알 생성 오브젝트 풀**
+
+```cs
+using UnityEngine;
+
+public class PlayerFire : MonoBehaviour
+{
+    public GameObject bulletFactory;//총알 프리팹
+    public GameObject firePosition; //총 발사 위치
+
+    private int poolSize = 10;
+
+    GameObject[] bulletObjectPool;
+
+    private void Start()
+    {
+        //1. 설정된 크기만큼 풀에 오브젝트 생성
+        bulletObjectPool = new GameObject[poolSize];
+
+        //2. 수만큼 반복해 총알 생성
+
+        for (int i = 0; i < poolSize; i++)
+        {
+            //총알 생성
+            var bullet = Instantiate(bulletFactory);
+            //풀에 등록
+            bulletObjectPool[i] = bullet;
+            //비활성화(필요할 때 활성화합니다.)
+            bullet.SetActive(false);
+        }
+    }
+    // Update is called once per frame
+    void Update()
+    {
+        if (Input.GetButtonDown("Fire1")) //Left Ctrl
+        {
+            for (int i = 0; i < poolSize; i++)
+            {
+                var bullet = bulletObjectPool[i];
+        
+                if(bullet.activeSelf == false)
+                {
+                    bullet.SetActive(true);
+                    bullet.transform.position = firePosition.transform.position;
+                    break;
+                }
+            }          
+        }
+    }
+}
+
+```
+
+***적 생성 오브젝트 풀***
+
+인스펙터 배치
+
+![image](https://github.com/user-attachments/assets/4b7c26e0-ff74-4243-bcf9-b8da379cc4ce)
+
+
+```cs
+using UnityEngine;
+
+
+public class EnemyManager : MonoBehaviour
+{
+    //현재의 시간
+    float currentTime;
+
+    //일정 시간
+    public float createTime = 1.0f;
+    
+    //생성할 적
+    public GameObject enemyFactory;
+
+    float min = 1, max = 5;
+
+
+    //오브젝트 풀 설정
+    public int poolSize = 10;
+    GameObject[] enemyObjectPool;
+
+    //생성 위치(배열)
+    public Transform[] spawnPoints;
+
+    private void Start()
+    {
+        createTime = Random.Range(min, max);
+
+        enemyObjectPool = new GameObject[poolSize];
+
+        for(int i =0; i < poolSize; i++)
+        {
+            var enemy = Instantiate(enemyFactory);
+            enemyObjectPool[i] = enemy;
+            enemy.SetActive(false);
+        }
+
+    }
+
+
+    private void Update()
+    {
+        //1. 시간이 흐른다.
+        currentTime += Time.deltaTime;
+        //2. 현재 시간이 일정 시간에 도달한다면
+        //    적을 생성합니다.
+        if(currentTime >= createTime)
+        {
+
+            for (int i = 0; i < poolSize; i++)
+            {
+                var enemy = enemyObjectPool[i];
+                if (enemy.activeSelf == false)
+                {
+                    //랜덤 스폰
+                    int index = Random.Range(0, spawnPoints.Length); 
+                    enemy.transform.position = spawnPoints[index].position;
+                    enemy.SetActive(true);
+                    break;
+                }
+            }
+
+            //3. 소환 후 시간을 0으로 리셋합니다.
+            currentTime = 0;
+            //createTime = Random.Range(min, max);
+        }
+    }
+}
+
+```
+
+** 제거 관련 스크립트 수정 **
+
+```cs
+      private void OnEnable()...
+      //Start -> OnEnable로 변경
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        ScoreManager.Instance.Score++;
+
+        GameObject explosion = Instantiate(explosionFactory);
+        explosion.transform.position = transform.position;
+
+        //부딪힌 물체의 이름이 Bullet이 포함된다면?
+        //오브젝트 풀로 만들어질 이름은 Bullet(Clone)
+        if(collision.gameObject.name.Contains("Bullet"))
+        {
+            //해당 충돌체를 비활성화 처리합니다.
+            collision.gameObject.SetActive(false);
+        }
+        else
+        {
+            Destroy(collision.gameObject);
+        }
+        gameObject.SetActive(false); //적도 비활성화
+    }
+```
+
+```cs
+    private void OnTriggerEnter(Collider other)
+    {        
+        if(other.gameObject.name.Contains("Bullet") || other.gameObject.name.Contains("Enemy"))
+        {
+            other.gameObject.SetActive(false);
+        }
+    }
+```
+
+
