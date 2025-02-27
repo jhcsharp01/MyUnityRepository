@@ -298,7 +298,7 @@ public class DestroyZone : MonoBehaviour
 
 ## 배경 추가
 
-**Create -> 3D Object -> Quad **
+**Create -> 3D Object -> Quad**
 
 **Create -> Material -> BaseMap에 이미지 추가 (URP/Lit) 기준**
 
@@ -328,6 +328,24 @@ public class Background : MonoBehaviour
 
 ## 폭발 이펙트 추가
 
+Enemy.cs에 다음 코드를 추가합니다.
+
+```cs
+
+public GameObject explosionFactory;
+
+private void OnCollisionEnter(Collision collision)
+{
+ GameObject explosion = Instantiate(explosionFactory);
+ explosion.transform.position = transform.position;
+ Destroy(collision.gameObject);
+ Destroy(gameObject);
+}
+```
+
+인스펙터 적용
+![image](https://github.com/user-attachments/assets/94e45e88-fbb5-4222-ad87-294e4d8a2c7c)
+
 
 
 ## 사운드 추가
@@ -341,5 +359,110 @@ public class Background : MonoBehaviour
 # 베타 타입 구현
 
 ## 싱글톤 패턴
+
+>> 싱글톤 패턴이란 단 하나의 유일한 객체를 만들기 위한 디자인 패턴을 의미한다.
+>> 똑같은 데이터를 여러 개 만들면 무의미하기에 한번만 선언하고 가져와서 사용하는 것이 목적입니다.
+>> 해당 객체가 리소스를 많이 차지하는 역할의 무거운 클래스일 경우 효과적입니다.
+>> 어플리케이션 기준 유일하며, 유일한 것이 좋은 객체를 대상으로 만들어줍니다.
+
+## 구현 원리(기본)
+```cs
+public class Singleton : MonoBehaviour
+{
+    public static Singleton Instance = null;
+    
+    private void Awake()
+    {
+        if(Instance == null)
+        {
+            Instance = this;
+        }
+    }
+
+    public int value;
+    public void Method() {}
+    public int Value { get; set; }
+}
+```
+1. 자기 자신의 형태의 static 변수를 null로 설정한다.
+2. 시작 단계에서 인스턴스가 null이라면, 자기 자신으로 설정한다.
+3. Singleton.Instance.필드/메소드/프로퍼티 등으로 직접적인 연결없이 사용이 가능하다.
+
+
+
+**인스펙터 배치**
+![image](https://github.com/user-attachments/assets/37ab0e20-be12-4ca1-81c2-9c3e9ff0fb86)
+
+**캔버스 배치**
+
+![image](https://github.com/user-attachments/assets/23d27780-e2d6-4899-ae73-5386f5fc5c46)
+
+**씬 뷰 배치**
+
+![image](https://github.com/user-attachments/assets/4189550a-1db6-4c9a-9a94-72113e931ecf)
+
+ScoreManager 객체 생성
+
+ScoreManager.cs 연결
+
+```cs
+using UnityEngine;
+using UnityEngine.UI;
+
+//점수를 관리하는 유일한 매니저
+public class ScoreManager : MonoBehaviour
+{
+    #region Singleton
+    public static ScoreManager Instance = null;
+
+    private void Awake()
+    {
+        if(Instance == null)
+        {
+            Instance = this;
+        }
+    }
+    #endregion
+
+    private void Start()
+    {
+        bestScore = PlayerPrefs.GetInt("Best Score");
+        currentScoreUI.text = $"현재 점수 : {currenetScore}";
+        bestScoreUI.text = $"최고 점수 : {bestScore}";
+    }
+
+
+    //Inspector
+    public Text currentScoreUI;
+    public Text bestScoreUI;
+
+    //Inner
+    private int currenetScore;
+    private int bestScore;
+
+    public int Score
+    {
+        get
+        {
+            return currenetScore;
+        }
+
+        set
+        {
+            currenetScore = value;
+            currentScoreUI.text = $"현재 점수 : {currenetScore}";
+
+            if(currenetScore > bestScore)
+            { 
+                bestScore = currenetScore;
+                bestScoreUI.text = $"최고 점수 : {bestScore}";
+                PlayerPrefs.SetInt("Best Score", bestScore);
+            }
+        }
+    }
+}
+
+```
+
 
 ## 오브젝트 풀
