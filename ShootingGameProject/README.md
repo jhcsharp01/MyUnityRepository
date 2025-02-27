@@ -8,6 +8,8 @@
 ## 목차
 0. [완성 결과물 예시](#완성-결과물-예시)
 1. [프로토 타입 구현](#프로토-타입-구현)
+   1-1. [플레이어 만들기](#플레이어-배치)
+   1-2. [총알 만들기](#총알-만들기)
 
 
 
@@ -39,8 +41,18 @@
 
 ### 플레이어 배치
 **Create -> 3D Object -> Cube**
+(이미지는 알파 단계에서 적용합니다.)
 
-![image](https://github.com/user-attachments/assets/e45008c0-d0ba-427d-bdaf-dcd76aabec93)
+
+![image](https://github.com/user-attachments/assets/356c53a1-ecdf-42a6-aa4e-8686d3f17e1b)
+
+플레이어에 FirePosition 객체를 만들어 연결해줍니다.
+
+![image](https://github.com/user-attachments/assets/89575b60-66d0-4be6-8b5f-d88b473b1a72)
+
+
+
+
 
 PlayerMove.cs 파일을 연결합니다.
 ```cs
@@ -60,8 +72,54 @@ void Update()
 
 ```
 
-
 |이름|물체의 이동 공식|해석|
 |-------|---------------|--------|
-|등속 운동|![CodeCogsEqn](https://github.com/user-attachments/assets/9179ad4d-f76b-45e3-8963-3064b1963cf0)|미래의 위치 = 현재의 위치 + 속도 * 시간|
+|등속 운동|![CodeCogsEqn](https://github.com/user-attachments/assets/9179ad4d-f76b-45e3-8963-3064b1963cf0)|미래의 위치 = 현재의 위치 + 속도 × 시간|
+|등가속도 운동|![CodeCogsEqn (1)](https://github.com/user-attachments/assets/a3e2dd4d-1b64-4870-b72b-057765167aa0)|미래의 속도 = 현재의 속도 + 가속도 × 시간|
+|가속도|![CodeCogsEqn (2)](https://github.com/user-attachments/assets/5b0baf76-f38e-42ff-b858-96c7ae6274e2)|힘 = 질량 × 가속도|
 
+
+PlayerFire.cs 파일을 연결합니다.
+```cs
+public class PlayerFire : MonoBehaviour
+{
+    public GameObject bulletFactory;//총알 프리팹
+    public GameObject firePosition; //총 발사 위치
+
+     void Update()
+    {
+        if (Input.GetButtonDown("Fire1")) //Left Ctrl
+        {
+            for (int i = 0; i < poolSize; i++)
+            {
+               GameObject bullet = Instantiate(bulletFactory);
+               bullet.transform.position = firePosition.transform.position;
+            }          
+        }
+    }
+
+}
+```
+
+### 총알 만들기
+**Create -> 3D Object -> Capsule**
+
+(이미지 추가, 오디오 소스 추가, 파티클 추가는 알파 단계에서 진행합니다.)
+
+![image](https://github.com/user-attachments/assets/7811c6a9-ef01-40ac-8c86-b146194a7d96)
+
+Bullet.cs 파일을 연결합니다.
+
+```cs
+public class Bullet : MonoBehaviour
+{
+    public float speed = 5.0f;
+
+    // Update is called once per frame
+    void Update()
+    {
+        transform.position += Vector3.up * speed * Time.deltaTime;
+    }
+}
+
+```
