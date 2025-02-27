@@ -656,6 +656,7 @@ public class EnemyManager : MonoBehaviour
 1. 컴퍼니명 설정
 
 레지스트리로 확인해보는 컴퍼니 변경점
+
 ![image](https://github.com/user-attachments/assets/f5b8c5af-4922-4015-898f-1460b159b8bf)
 
 
