@@ -37,6 +37,31 @@
 
    ![image](https://github.com/user-attachments/assets/396cf185-2006-48f4-9982-0645b0065d4b)
 
+### 플레이어 배치
+**Create -> 3D Object -> Cube**
+
+![image](https://github.com/user-attachments/assets/e45008c0-d0ba-427d-bdaf-dcd76aabec93)
+
+PlayerMove.cs 파일을 연결합니다.
+```cs
+public class PlayerMove : MonoBehaviour
+{
+ public float speed = 5.0f;
+
+// Update is called once per frame
+void Update()
+{
+    float h = Input.GetAxis("Horizontal");
+    float v = Input.GetAxis("Vertical");
+
+    Vector3 dir = new Vector3(h, v, 0);
+    transform.position += dir * speed * Time.deltaTime;
+}
+
+```
 
 
+|이름|물체의 이동 공식|해석|
+|-------|---------------|--------|
+|등속 운동|![CodeCogsEqn](https://github.com/user-attachments/assets/9179ad4d-f76b-45e3-8963-3064b1963cf0)|미래의 위치 = 현재의 위치 + 속도 * 시간|
 
