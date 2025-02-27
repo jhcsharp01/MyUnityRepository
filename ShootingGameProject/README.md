@@ -641,4 +641,77 @@ public class EnemyManager : MonoBehaviour
     }
 ```
 
+# 빌드
+
+**File -> Build Profiles -> Player Settings**
+
+![image](https://github.com/user-attachments/assets/3e6e6278-8343-4799-920e-0a8bf583c90d)
+
+
+**설정**
+
+![image](https://github.com/user-attachments/assets/e5f571b3-11de-46a5-a52b-d79897141b53)
+
+
+1. 컴퍼니명 설정
+
+레지스트리로 확인해보는 컴퍼니 변경점
+![image](https://github.com/user-attachments/assets/f5b8c5af-4922-4015-898f-1460b159b8bf)
+
+
+2. 아이콘 변경
+   
+   기본 이미지를 사용하면 된다.
+   
+![image](https://github.com/user-attachments/assets/6bcc9dac-322f-4c79-a311-9a28b5876ffc)
+
+
+4. 커서 변경
+
+ 이미지의 타입을 Cursor 형태로 설정해야 한다.
+
+ ![image](https://github.com/user-attachments/assets/8b223664-cc97-4b37-bd8b-559e6ffea9fb)
+ 
+
+5. 해상도 설정
+   
+   Resolution and Presentation 기능을 선택한다.
+
+   ![image](https://github.com/user-attachments/assets/7d6d5024-232b-4371-a0d8-87643c823c86)
+
+7. 스플래시 로고 설정'
+
+   게임 시작 시의 로고에 대한 설정을 할 수 있다.
+   
+   유니티 6부터는 로고 제거 기능이 추가되었다.(기존에는 Pro, License)
+   
+   Preview 버튼을 누르면 에디터 내의 게임 씬에서 실행된다.
+   
+   Blur 처리 해제를 하면 배경이 정확히 보인다.
+   
+   Animation 모드를 설정할 수 있다. (static ,dolly, custom)
+   
+   ![image](https://github.com/user-attachments/assets/f3c2aca6-51e8-46ba-8e01-a3dd5cf18298)
+
+   로고 이미지 설정
+
+   스프라이트 모드가 Single이어야하며, 메쉬 타입은 Full Rect로 설정한다.
+
+   ![image](https://github.com/user-attachments/assets/ecf05fbe-05cb-4694-a067-f523da329463)
+
+   실행 예시
+   
+   ![image](https://github.com/user-attachments/assets/8ef1c0d3-2c6e-4589-a09a-cb36d797818e)
+
+
+8. 빌드 진행
+
+   설정이 다 끝났으면 Build를 통해 빌드를 진행한다. 이때 프로젝트 내부에 빌드하지 말고 별도의 폴더를 만들어서 따로 빌드한다.
+
+   빌드 예시
+
+   ![image](https://github.com/user-attachments/assets/f309916d-4627-4d6f-b049-5a957e2c6ccc)
+
+
+
 
